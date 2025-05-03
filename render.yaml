@@ -1,9 +1,0 @@
-services:
-  - type: web
-    name: health-monitor-api
-    env: python
-    buildCommand: "pip install -r requirements.txt"
-    startCommand: "gunicorn app:app"
-    envVars:
-      - key: GOOGLE_APPLICATION_CREDENTIALS
-        value: serviceAccountKey.json
