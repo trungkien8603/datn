@@ -1,3 +1,18 @@
-"scripts": {
-  "start": "node server.js"
+{
+  "name": "server_health",
+  "version": "1.0.0",
+  "description": "A brief description of your project",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1",  // Thêm các dependencies cần thiết của bạn
+    "dotenv": "^16.5.0"    // Ví dụ, nếu bạn sử dụng dotenv
+  },
+  "engines": {
+    "node": "22.14.0" // Đảm bảo rằng bạn chỉ định phiên bản Node.js tương thích trên Render
+  },
+  "author": "trinitykien",
+  "license": "ISC"
 }
