@@ -5,12 +5,14 @@ from firebase_admin import credentials, messaging, db
 import json
 import paho.mqtt.client as mqtt
 from datetime import datetime
+import os
 
 # ====== FLASK KHỞI TẠO ======
 app = Flask(__name__)
 
 # ====== KHỞI TẠO FIREBASE ADMIN SDK ======
-cred = credentials.Certificate("secret")  # Đảm bảo đúng đường dẫn
+firebase_json = os.getenv("FIREBASE_CONFIG_JSON")
+cred = credentials.Certificate(json.loads(firebase_json))
 firebase_admin.initialize_app(cred, {
     'databaseURL': 'https://firstproject-f55ec-default-rtdb.asia-southeast1.firebasedatabase.app'
 })
