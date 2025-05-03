@@ -10,7 +10,7 @@ from datetime import datetime
 app = Flask(__name__)
 
 # ====== KHỞI TẠO FIREBASE ADMIN SDK ======
-cred = credentials.Certificate("serviceAccountKey.json")  # Đảm bảo đúng đường dẫn
+cred = credentials.Certificate("secret")  # Đảm bảo đúng đường dẫn
 firebase_admin.initialize_app(cred, {
     'databaseURL': 'https://firstproject-f55ec-default-rtdb.asia-southeast1.firebasedatabase.app'
 })
