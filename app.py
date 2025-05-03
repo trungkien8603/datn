@@ -18,7 +18,7 @@ firebase_admin.initialize_app(cred, {
 })
 
 # ====== MQTT CẤU HÌNH ======
-MQTT_BROKER = "192.168.1.14"
+MQTT_BROKER = "test.mosquitto.org"
 MQTT_PORT = 1883
 MQTT_TOPIC = "health_data"
 
