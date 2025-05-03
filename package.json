@@ -7,11 +7,11 @@
     "start": "node server.js"
   },
   "dependencies": {
-    "express": "^4.17.1",  // Thêm các dependencies cần thiết của bạn
-    "dotenv": "^16.5.0"    // Ví dụ, nếu bạn sử dụng dotenv
+    "express": "^4.17.1", 
+    "dotenv": "^16.5.0"
   },
   "engines": {
-    "node": "22.14.0" // Đảm bảo rằng bạn chỉ định phiên bản Node.js tương thích trên Render
+    "node": "22.14.0"
   },
   "author": "trinitykien",
   "license": "ISC"
