@@ -56,6 +56,8 @@ def mqtt_thread():
         client.loop_forever()
     except Exception as e:
         print("[ERROR] MQTT connection error:", e)
+        
+    threading.Thread(target=mqtt_thread, daemon=True).start()
 
 # ====== ROUTE HTTP NHẬN fall_detect TỪ ESP32 ======
 @app.route("/esp-data", methods=["POST"])
@@ -95,6 +97,5 @@ def receive_data():
 
 # ====== CHẠY ỨNG DỤNG ======
 if __name__ == "__main__":
-    threading.Thread(target=mqtt_thread, daemon=True).start()
     print("[FLASK] Server đang chạy trên cổng 5000...")
     app.run(host="0.0.0.0", port=5000)
