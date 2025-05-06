@@ -11,14 +11,19 @@ import os
 app = Flask(__name__)
 
 # ====== KHỞI TẠO FIREBASE ADMIN SDK ======
+
 firebase_json = os.getenv("FIREBASE_CONFIG_JSON")
-cred = credentials.Certificate(json.loads(firebase_json))
+cred = credentials.Certificate((firebase_json))
+# with open("serviceAccountKey.json", "r") as f:
+#     service_account_json = json.load(f)
+
+# cred = credentials.Certificate(service_account_json)
 firebase_admin.initialize_app(cred, {
     'databaseURL': 'https://firstproject-f55ec-default-rtdb.asia-southeast1.firebasedatabase.app'
 })
 
 # ====== MQTT CẤU HÌNH ======
-MQTT_BROKER = "test.mosquitto.org"
+MQTT_BROKER = "192.168.41.101"
 MQTT_PORT = 1883
 MQTT_TOPIC = "health_data"
 
@@ -28,23 +33,23 @@ def on_message(client, userdata, msg):
     try:
         payload = json.loads(msg.payload.decode())
         spo2 = payload.get("spo2")
-        heart_rate = payload.get("heart_rate")
-        fall_detect = payload.get("fall_detect", 0)
+        heartRate = payload.get("heartRate")
+        fallStatus = payload.get("fallStatus")
 
-        print(f"[MQTT] SpO2: {spo2}, Heart rate: {heart_rate}, Fall: {fall_detect}")
+        print(f"[MQTT] SpO2: {spo2}, Heart rate: {heartRate}, Fall: {fallStatus}")
 
-        # Gửi dữ liệu lên Firebase
-        ref = db.reference("user/kien")
-        result = ref.push({
+        # Ghi đè dữ liệu lên Firebase (thay vì push thêm)
+        ref = db.reference("users/kien")  # Định danh cố định cho dữ liệu mới nhất
+        ref.set({  # Sử dụng set() để ghi đè
             "spo2": spo2,
-            "heart_rate": heart_rate,
-            "fall_detect": fall_detect,
-            "timestamp": datetime.now().isoformat()
+            "heartRate": heartRate,
+            "fallStatus": fallStatus,
+            # "timestamp": datetime.now().isoformat()
         })
-        print("[Firebase] Đã ghi dữ liệu với key:", result.key)
+        print("[Firebase] Đã ghi đè dữ liệu")
 
         # Gửi thông báo nếu phát hiện ngã
-        if fall_detect == 1:
+        if fallStatus == 1:
             message = messaging.Message(
                 topic="fall_alert",
                 notification=messaging.Notification(
