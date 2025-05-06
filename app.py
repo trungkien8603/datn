@@ -86,7 +86,11 @@ def mqtt_thread():
         client.loop_forever()
     except Exception as e:
         print("[ERROR] MQTT connection error:", e)
-
+        
+# ====== ROUTE ĐƠN GIẢN CHO FLASK ======
+@app.route('/')
+def home():
+    return "Server đang chạy"
 # ====== KHỞI ĐỘNG SERVER & MQTT ======
 if __name__ == "__main__":
     threading.Thread(target=mqtt_thread, daemon=True).start()
