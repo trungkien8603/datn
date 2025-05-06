@@ -13,7 +13,10 @@ app = Flask(__name__)
 # ====== KHỞI TẠO FIREBASE ADMIN SDK ======
 
 firebase_json = os.getenv("FIREBASE_CONFIG_JSON")
-cred = credentials.Certificate((firebase_json))
+service_account_info = json.loads(firebase_json)
+
+# Truyền dict vào Certificate
+cred = credentials.Certificate(service_account_info)
 # with open("serviceAccountKey.json", "r") as f:
 #     service_account_json = json.load(f)
 
